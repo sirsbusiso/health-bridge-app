@@ -63,23 +63,31 @@ $(".save").click(function () {
     var IdNumber = $('#patient-id').val();
 
     if (FirstName == "") {
-        $("#firstnameerror").html("Please enter First Name");
+        alert("Please enter First Name");
+        return false;
+    }
+    else if (FirstName.length > 50) {
+        alert("Last Name can not be more than 50 charactors");
         return false;
     }
     else if (LastName == "") {
-        $("#lastnameerror").html("Please enter Last Name");
+        alert("Please enter Last Name");
+        return false;
+    }
+    else if (LastName.length > 50) {
+        alert("Last Name can not be more than 50 charactors");
         return false;
     }
     else if (IdNumber == "") {
-        $("#iderror").html("Please enter Id Number");
+        alert("Please enter Id Number");
         return false;
     }
     else if (IdNumber.length < 13 || IdNumber.length > 13) {
-        $("#iderror").html("Id Number must be 13 digits");
+        alert("Id Number must be 13 digits");
         return false;
     }
     if (reg.test(IdNumber) == false) {
-        $("#iderror").html("Only Numeric Id is allowed");
+        alert("Only Numeric Id is allowed");
         return false;
     }
     else {
@@ -226,23 +234,31 @@ $(".edit").click(function () {
     
 
     if (FirstName == "") {
-        $("#firstnameerror").html("Please enter First Name");
+        alert("Please enter First Name");
+        return false;
+    }
+    else if (FirstName.length > 50) {
+        alert("First Name can not be more than 50 charactors");
         return false;
     }
     else if (LastName == "") {
-        $("#lastnameerror").html("Please enter Last Name");
+        alert("Please enter Last Name");
+        return false;
+    }
+    else if (LastName.length > 50) {
+        alert("Last Name can not be more than 50 charactors");
         return false;
     }
     else if (IdNumber == "") {
-        $("#iderror").html("Please enter Id Number");
+        alert("Please enter Id Number");
         return false;
     }
     else if (IdNumber.length < 13 || IdNumber.length > 13) {
-        $("#iderror").html("Id Number must be 13 digits");
+        alert("Id Number must be 13 digits");
         return false;
     }
     if (reg.test(IdNumber) == false) {
-        $("#iderror").html("Only Numeric Id is allowed");
+        alert("Only Numeric Id is allowed");
         return false;
     }
     else {
