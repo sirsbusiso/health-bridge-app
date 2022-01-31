@@ -4,8 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>HealthBridge</title>
+    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")    
+    @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -36,7 +38,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
         $(function () {
             $("input[id*='date']").datepicker({
@@ -44,7 +46,7 @@
             });
         });
     </script>
-    
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
