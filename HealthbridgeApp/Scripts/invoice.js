@@ -139,58 +139,7 @@ $(".createinvoicelinebtn").click(function () {
     $("#invoiceModal").modal({ backdrop: false });
 })
 
-$(".edit").click(function () {
-    debugger;
-    var line = {
-        Qty: $('#line-qty').val(),
-        Code: $('#line-code').val(),
-        Description: $('#line-description').val(),
-        Total: $('#line-total').val(),
-        InvoiceLineId: $('#lineId').val(),
-        LineTotal: $('#line-total').val(),
-        invoiceId: $('#invoiceId').val()
 
-    };
-    if (line.Qty <= 0) {
-        alert("Qty can not be 0 or less");
-        return false;
-    }
-    if (line.Code.length > 10) {
-        alert("Code can not exceed 10 charactors");
-        return false;
-    }
-    if (line.Description.length > 250) {
-        alert("Description can not exceed 250 charactors");
-        return false;
-    }
-    if (line.LineTotal == 0) {
-        alert("Line total can not be 0 or less");
-        return false;
-    }
-
-    var url = '/api/InvoiceLine';
-    $.ajax({
-        type: "PUT",
-        url: url,
-        dataType: 'json',
-        data: line,
-        success: function (data) {
-
-            PopulateDetailsTable(line.invoiceId);
-            $("#iDate").text(" ");
-            $("#pName").text(" ");
-            $('#invTotal').text("0.00");
-            // Ajax call completed successfully
-            alert(data);
-            $("#lineeditmodal").modal('toggle');
-        },
-        error: function (data) {
-
-            // Some error in ajax call
-            alert("Error, please make sure you fill in all the information");
-        }
-    });
-});
 
 $("#invoiceInfo").on("click", "tr>td>button.viewDetails", function () {
     debugger;
@@ -392,9 +341,9 @@ $(".save").click(function () {
             alert("Please enter description");
             isValid = false;
         }
-        else if (lineItem.lineTotal == 0) {
+        else if (lineItem.lineTotal <= 0) {
             alert("Line total can not be 0 or less");
-            isValid = false;
+            return false;
         }
         else if (lineItem.lineTotal === '') {
             alert("Please enter lineTotal");
@@ -431,6 +380,78 @@ $(".save").click(function () {
 
 });
 
+$(".edit").click(function () {
+    debugger;
+    var isValid = false;
+    var line = {
+        Qty: $('#line-qty').val(),
+        Code: $('#line-code').val(),
+        Description: $('#line-description').val(),
+        Total: $('#line-total').val(),
+        InvoiceLineId: $('#lineId').val(),
+        LineTotal: $('#line-total').val(),
+        invoiceId: $('#invoiceId').val()
+
+    };
+    if (line.Qty <= 0) {
+        alert("Qty can not be 0 or less");
+        return false;
+    }
+    else if (line.Qty === '') {
+        alert("Please enter qty");
+        return false;
+    }
+    else if (line.Code.length > 10) {
+        alert("Code can not exceed 10 charactors");
+        return false;
+    }
+    else if (line.Code === '') {
+        alert("Please enter code");
+        return false;
+    }
+    else if (line.Description.length > 250) {
+        alert("Description can not exceed 250 charactors");
+        return false;
+    }
+    else if (line.Description === '') {
+        alert("Please enter description");
+        return false;
+    }
+    else if (line.LineTotal <= 0) {
+        alert("Line total can not be 0 or less");
+        return false;
+    }
+    else if (line.LineTotal === '') {
+        alert("Please enter line total");
+        return false;
+    }
+    else {
+        isValid = true;
+    }
+
+    var url = '/api/InvoiceLine';
+    $.ajax({
+        type: "PUT",
+        url: url,
+        dataType: 'json',
+        data: line,
+        success: function (data) {
+
+            PopulateDetailsTable(line.invoiceId);
+            $("#iDate").text(" ");
+            $("#pName").text(" ");
+            $('#invTotal').text("0.00");
+            // Ajax call completed successfully
+            alert(data);
+            $("#lineeditmodal").modal('toggle');
+        },
+        error: function (data) {
+
+            // Some error in ajax call
+            alert("Error, please make sure you fill in all the information");
+        }
+    });
+});
 $("#closeModal").click(function () {
     $('#line-qty').val(" "),
         $('#line-code').val(" "),
