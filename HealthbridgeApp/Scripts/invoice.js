@@ -299,17 +299,6 @@ $('#addItem').click(function () {
         $('#remove' + firstRowIdNum).show();
     }
 
-    //debugger;
-
-    //var itemsTotals = $('.itemTotal');
-    //var itemsTotal = 0;
-
-    //$.each(itemsTotals, function (i, v) {
-    //    debugger;
-    //    itemsTotal += parseFloat(v.value);
-    //})
-
-    //$('#invTotal').text(itemsTotal);
 });
 
 $('#lineItems').on('click', '.removeItem', function () {
@@ -351,7 +340,7 @@ $(".save").click(function () {
             description: values[2].value,
             lineTotal: values[3].value
         };
-
+      
 
         invoice.createInvoiceLineViewModels.push(lineItem);
     });
