@@ -337,6 +337,7 @@ $('#lineItems').on('click', '.removeItem', function () {
 $(".save").click(function () {
     var invoiceDate = $('#invoice-invoicedate').val();
     var patientId = $('#patientId').val();
+    var patient = $("#invoice-patientname").val();
     var isValid = false;
     var invoice = {
         invoiceDateTime: invoiceDate,
@@ -363,7 +364,7 @@ $(".save").click(function () {
             alert("Please select date");
             isValid = false;
         }
-        else if (invoice.patientId === '') {
+        else if (patient === '') {
             alert("Please select patient");
             isValid = false;
         }
