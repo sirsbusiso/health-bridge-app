@@ -126,7 +126,7 @@ $("#invoiceDetails").on("click", "tr>td>button.updateInvoiceLine", function () {
             $('#lineId').val(invoiceLineId);
             $('#invoiceId').val(invoiceId);
 
-            $("#lineeditmodal").modal();
+            $("#lineeditmodal").modal({ backdrop: false });
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -151,6 +151,22 @@ $(".edit").click(function () {
         invoiceId: $('#invoiceId').val()
 
     };
+    if (line.Qty <= 0) {
+        alert("Qty can not be 0 or less");
+        return false;
+    }
+    if (line.Code.length > 10) {
+        alert("Code can not exceed 10 charactors");
+        return false;
+    }
+    if (line.Description.length > 250) {
+        alert("Description can not exceed 250 charactors");
+        return false;
+    }
+    if (line.LineTotal == 0) {
+        alert("Line total can not be 0 or less");
+        return false;
+    }
    
     var url = '/api/InvoiceLine';
     $.ajax({
@@ -171,7 +187,7 @@ $(".edit").click(function () {
         error: function (data) {
 
             // Some error in ajax call
-            alert("Opps Error");
+            alert("Error, please make sure you fill in all the information");
         }
     });
 });
@@ -260,7 +276,7 @@ $(".backtolist").click(function () {
 $(".createinvoicebtn").click(function () {
     $("#modalLabel").html("Create New Invoice");
     $(".save").show();
-    $(".edit").hide();
+    $(".edit").show();
     $("#invoiceModal").modal({ backdrop: false });
 });
 
@@ -340,7 +356,23 @@ $(".save").click(function () {
             description: values[2].value,
             lineTotal: values[3].value
         };
-      
+        debugger;
+        if (lineItem.qty <= 0) {
+            alert("Qty can not be 0 or less");
+            return false;
+        }
+        if (lineItem.code.length > 10) {
+            alert("Code can not exceed 10 charactors");
+            return false;
+        }
+        if (lineItem.description.length > 250) {
+            alert("Description can not exceed 250 charactors");
+            return false;
+        }
+        if (lineItem.lineTotal == 0) {
+            alert("Line total can not be 0 or less");
+            return false;
+        }
 
         invoice.createInvoiceLineViewModels.push(lineItem);
     });
