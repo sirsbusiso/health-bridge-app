@@ -400,5 +400,5 @@ $("#close").click(function () {
         $('#line-total').val(" "),
         $('#invoiceId').val(" "),
 
-        $("#invoiceModal").modal('toggle');
+        $("#lineeditmodal").modal('toggle');
 });
