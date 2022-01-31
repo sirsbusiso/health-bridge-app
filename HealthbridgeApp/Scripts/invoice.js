@@ -167,7 +167,7 @@ $(".edit").click(function () {
         alert("Line total can not be 0 or less");
         return false;
     }
-   
+
     var url = '/api/InvoiceLine';
     $.ajax({
         type: "PUT",
@@ -317,6 +317,8 @@ $('#addItem').click(function () {
 
 });
 
+
+
 $('#lineItems').on('click', '.removeItem', function () {
     if ($('#lineItems').children('.row').not('#header-row').length > 1) {
         var rowToRemove = $(this).parent().parent();
@@ -335,7 +337,7 @@ $('#lineItems').on('click', '.removeItem', function () {
 $(".save").click(function () {
     var invoiceDate = $('#invoice-invoicedate').val();
     var patientId = $('#patientId').val();
-
+    var isValid = false;
     var invoice = {
         invoiceDateTime: invoiceDate,
         patientId: patientId,
@@ -357,47 +359,75 @@ $(".save").click(function () {
             lineTotal: values[3].value
         };
         debugger;
-        if (lineItem.qty <= 0) {
+        if (invoice.invoiceDateTime === '') {
+            alert("Please select date");
+            isValid = false;
+        }
+        else if (invoice.patientId === '') {
+            alert("Please select patient");
+            isValid = false;
+        }
+        else if (lineItem.qty <= 0) {
             alert("Qty can not be 0 or less");
-            return false;
+            isValid = false;
         }
-        if (lineItem.code.length > 10) {
+        else if (lineItem.qty === '') {
+            alert("Please enter qty");
+            isValid = false;
+        }
+        else if (lineItem.code.length > 10) {
             alert("Code can not exceed 10 charactors");
-            return false;
+            isValid = false;
         }
-        if (lineItem.description.length > 250) {
+        else if (lineItem.code === '') {
+            alert("Please enter code");
+            isValid = false;
+        }
+        else if (lineItem.description.length > 250) {
             alert("Description can not exceed 250 charactors");
-            return false;
+            isValid = false;
         }
-        if (lineItem.lineTotal == 0) {
+        else if (lineItem.description === '') {
+            alert("Please enter description");
+            isValid = false;
+        }
+        else if (lineItem.lineTotal == 0) {
             alert("Line total can not be 0 or less");
-            return false;
+            isValid = false;
+        }
+        else if (lineItem.lineTotal === '') {
+            alert("Please enter lineTotal");
+            isValid = false;
+        }
+        else {
+            invoice.createInvoiceLineViewModels.push(lineItem);
+            isValid = true;
         }
 
-        invoice.createInvoiceLineViewModels.push(lineItem);
     });
 
-    console.log(invoice);
+    if (isValid) {
+        var url = '/api/Invoice';
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: 'json',
+            data: invoice,
+            success: function (data) {
+                // Ajax call completed successfully
+                alert(data);
+                $("#invoiceModal").modal('toggle');
+                var url = '/Invoice/Index';
+                window.location.href = url;
+            },
+            error: function (data) {
 
-    var url = '/api/Invoice';
-    $.ajax({
-        type: "POST",
-        url: url,
-        dataType: 'json',
-        data: invoice,
-        success: function (data) {
-            // Ajax call completed successfully
-            alert(data);
-            $("#invoiceModal").modal('toggle');
-            var url = '/Invoice/Index';
-            window.location.href = url;
-        },
-        error: function (data) {
+                // Some error in ajax call
+                alert("Error, please make sure you fill in all the information");
+            }
+        });
+    }
 
-            // Some error in ajax call
-            alert("Error, please make sure you fill in all the information");
-        }
-    });
 });
 
 $("#closeModal").click(function () {
