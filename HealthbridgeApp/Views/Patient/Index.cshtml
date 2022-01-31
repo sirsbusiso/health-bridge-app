@@ -1,0 +1,113 @@
+﻿
+
+<div class="container mr-5">
+    <br />
+    <br />
+    <br />
+    <div class="d-flex justify-content-center row" id="printsection">
+        <div class="col-md-12">
+            <div class="p-3 bg-white rounded">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1 class="text-uppercase">Patients</h1>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="text-right mb-3">
+                            <button class="btn btn-success btn-sm mr-5 addpatientbtn" title="Add a new patient" style="margin: 20px;">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <table id="simpletable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="th-sm" hidden="hidden">
+                            </th>
+
+                            <th class="th-sm" style="width: 15%">
+                            </th>
+
+                            <th class="th-sm">
+                                First Name
+                            </th>
+
+                            <th class="th-sm">
+                                Last Name
+                            </th>
+
+                            <th class="th-sm">
+                                Id Number
+                            </th>
+
+                            @*<th class="th-sm">
+        </th>*@
+                        </tr>
+                    </thead>
+                    <tbody id="patientInfo">
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="patientmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Add New Patient</h5>
+                </div>
+                <div class="modal-body" style="height:170px;">
+                    <form id="formId">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <input type="text" hidden="hidden" id="pId" />
+                                    <label for="patient-firstname" class="required">First Name:</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="patient-firstname">
+                                    <span id="firstnameerror" style="color:red"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label for="patient-lastname" class="required">Last Name:</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input class="form-control" id="patient-lastname">
+                                    <span id="lastnameerror" style="color:red"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label for="patient-id" class="required">Id Number:</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" max="13" min="13" class="form-control" id="patient-id">
+                                    <span id="iderror" style="color:red"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <br />
+                <br />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="closeModal">Close</button>
+                    <button type="button" class="btn btn-primary save">Add</button>
+                    <button type="button" class="btn btn-primary edit">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/patient.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
